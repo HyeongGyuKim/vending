@@ -1,0 +1,380 @@
+@use "_reset_2";
+
+$default_font : 16px;
+$default_fontWeight : 700;
+$default_mBottom : 20px;
+
+@mixin default_flex($param_display, $param_align, $param_justify, $param_direction) {
+    display: $param_display;
+    align-items: $param_align;
+    justify-content: $param_justify;
+    flex-direction: $param_direction;
+}
+
+@mixin default_widthHeight($param_width, $parma_height) {
+    width: $param_width;
+    height: $parma_height;
+}
+
+@mixin default_absolute($param_left, $param_top, $x, $y) {
+    position: absolute;
+    left: $param_left;
+    top: $param_top;
+    transform: translate($x, $y);
+}
+
+.wrap {
+    margin: 50px auto;
+    width: 1000px;
+    overflow: hidden;
+    position: relative;
+    .vendingTitle {
+        @include default_flex(flex, center, center, column);
+        p {
+            font-size: ($default_font + 14px);
+            font-weight: $default_fontWeight;
+            margin-bottom: ($default_mBottom - 5px);
+        }
+        span {
+            font-size: ($default_font + 8px);
+            margin-bottom: $default_mBottom;
+            &:first-child {
+                font-weight: $default_fontWeight
+            }
+        }
+    }
+    .vendingMarchineWrap {
+        width: 500px;
+        height: auto;
+        background-color: #22A766;
+        padding: 15px;
+        box-sizing: border-box;
+        position: relative;
+        margin: 0 auto;
+        .machineProductWrap {
+            @include default_widthHeight(100%, auto);
+            @include default_flex(flex, flex-start, flex-start, row);
+            background-color: #fff; 
+            border: 10px solid #0E713B; 
+            padding: 5px 10px;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 15px 0;
+            @at-root .productBox {
+                @include default_flex(flex, center, space-between, column);
+                width: 25%;
+                img {
+                    @include default_widthHeight(100px, 100px);
+                }
+                span {
+                    margin: 5px;
+                    font-size: ($default_font - 4px);
+                }
+                .item {
+                    @include default_widthHeight(100px, 22px);
+                    background-color: #000; 
+                    border-radius: 10px; 
+                    color: #fff; 
+                    text-align: center; 
+                    font-weight: $default_fontWeight; 
+                    cursor: pointer; 
+                    line-height: 22px;
+                }
+                .item.on {
+                    color: red;
+                }
+                .chk {
+                    @include default_widthHeight(16px, 16px);
+                    cursor: pointer;
+                }
+            }
+        }
+        .machineEtc {
+            @include default_widthHeight(100%, 300px);
+            @include default_flex(flex, flex-start, space-between, row);
+            margin: 30px auto 0;
+            .drinkExit {
+                width: 47%;
+                p {
+                    @include default_widthHeight(100%, 260px);
+                    font-size: ($default_font - 4px);
+                    line-height: 20px;
+                    background-color: #fff; 
+                    border-radius: 20px; 
+                    border: 5px solid #646464;
+                    padding: 15px;
+                    box-sizing: border-box;
+                    overflow: scroll;
+                    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+                    scrollbar-width: none; /* 파이어폭스 */
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                    span {
+                        margin-right: 5px;
+                    }
+                }
+                span {
+                    font-size: ($default_font - 4px);
+                    line-height: 20px;
+                }
+            }
+            .etcWrap {
+                width: 47%;
+                .etcTitle {
+                    font-size: ($default_font + 4px);
+                    background-color: #000; 
+                    color: rgb(224, 18, 18); 
+                    font-weight: $default_fontWeight; 
+                    padding:10px; 
+                    margin-bottom: ($default_mBottom - 15px);
+                    text-align: center;
+                }
+                .moneyWrap {
+                    @include default_flex(flex, center, space-between, row);
+                    .moneyBox {
+                        background-color: #CCCBC9; 
+                        border: 5px solid #9C9498; 
+                        @include default_widthHeight(140px, 70px);
+                        @include default_flex(flex, center, center, row);
+                        cursor: pointer;
+                        p {
+                            background-color: #fff; 
+                            display: inline-block;
+                            padding: 10px; 
+                            box-sizing: border-box; 
+                            margin: 0; 
+                            border-radius: 14px; 
+                            font-weight: $default_fontWeight; 
+                            font-size: ($default_font - 4px);
+                        }
+                    }
+                    .moneyButton {
+                        transition: 0.5s;
+                        p {
+                            @include default_widthHeight(40px, 40px);
+                            background-color: #DD1E26; 
+                            border-radius: 50px; 
+                            cursor: pointer; 
+                            position: relative;
+                            transition: 0.5s;
+                            span {
+                                @include default_absolute(50%, 50%, -50%, -50%);
+                                @include default_widthHeight(2px, 20px);
+                                background-color: #000; 
+                            }
+                        }
+                        p.on {
+                            transform: rotate(90deg);
+                            transition: 0.5s;
+                        }
+                    }
+                }
+                .btnWrap {
+                    margin-top: 15px;
+                    @include default_flex(flex, center, space-between, row);
+                    .btn {
+                        @include default_widthHeight(49%, 40px);
+                    }
+                    .btnAdd {
+                        @include default_widthHeight(49%, 40px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.side_nav {
+    position: fixed; 
+    width: 100%; 
+    top:50%; 
+    right:-100%; 
+    transition: 0.5s; 
+    z-index: 9; 
+    transform: translateY(-50%);
+    .side_cont {
+        margin: 0 auto; 
+        @include default_flex(flex, center, center, column);
+        position: relative; 
+        img {
+            display: none;
+        }
+        .close_btn {
+            @include default_absolute(10%, 10%, -10%, -10%);
+            cursor: pointer;
+        }
+        .input-container {
+            position: relative;
+            display: flex;
+            width: 100%;
+            max-width: 350px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
+            input {
+                @include default_widthHeight(100%, 100%);
+                border-radius: 8px;
+                border: 1px solid  rgb(176 190 197);
+                background-color: transparent;
+                padding: 0.625rem 70px 0.625rem 0.75rem;
+                font-size: ($default_font - 4px);
+                line-height: 1.25rem;
+                font-weight: ($default_fontWeight - 300);
+                color: rgb(69 90 100);
+                outline: none;
+                transition: all .15s cubic-bezier(0.4, 0, 0.2, 1);
+                &:focus {
+                    border: 1px solid rgb(112 72 236);
+                }
+            }
+            .invite-btn {
+                @include default_absolute(98%, 50%, -98%, -50%);
+                @include default_widthHeight(110px, 30px);
+                z-index: 10;
+                border-radius: 4px;
+                background-color: rgb(112 72 236);
+                color: #fff;
+                padding: 4px 8px;
+                text-align: center;
+                vertical-align: middle;
+                font-size: ($default_font - 4px);
+                font-weight: ($default_fontWeight - 100);
+                text-transform: uppercase;
+                border: none;
+                transition: .6s ease; 
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.sideBg {
+    @include default_widthHeight(100%, 100vh);
+    background-color: rgba(0,0,0,0.7); 
+    position: fixed; 
+    top:0; 
+    right: -100%; 
+    transition: 0.5s;
+}
+
+.active_nav {
+    .side_nav {
+        right: 0;
+        display: block;
+    }
+    .sideBg {
+        right: 0;
+    }
+}
+
+.activePop {
+    .sidePop {
+        right: 0;
+    }
+    .side_nav {
+        display: none;
+    }
+    .sideBg {
+        right: 0;
+    }
+}
+
+.sidePop {
+    position: fixed; 
+    width: 100%; 
+    top:50%; 
+    right:-100%; 
+    transition: 0.5s; 
+    z-index: 9; 
+    transform: translateY(-50%);
+    .sideDrinkWrap {
+        position: relative;
+        .sideCont {
+            @include default_widthHeight(550px, 50%);
+            @include default_flex(flex, center, flex-start, row);
+            padding: 30px 30px 100px;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 15px 0;
+            margin: 0 auto;
+            border-radius: 20px;
+            position: relative;
+            background-color: #869bd7;
+            .close_btn {
+                @include default_absolute(10%, 10%, -10%, -10%);
+                cursor: pointer;
+            }
+        }
+        .btnDA {
+            @include default_absolute(50%, 95%, -50%, -95%);
+            @include default_flex(flex, center, center, row);
+            button {
+                width: 100px;
+                padding: 10px 20px;
+                box-sizing: border-box;
+                margin: 0 5px;
+                cursor: pointer;
+                border: none;
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+.alert {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-color: #0E713B;
+    position: absolute;
+    left: 50%;
+    top: -100%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+// .alert.on {
+//     top: 0%;
+// }
+
+.sidePop {
+    position: fixed; 
+    width: 100%; 
+    top:50%; 
+    right:-100%; 
+    transition: 0.5s; 
+    z-index: 9; 
+    transform: translateY(-50%);
+    .sideDrinkJon {
+        position: relative;
+        .sideCont {
+            @include default_widthHeight(550px, 50%);
+            @include default_flex(flex, center, flex-start, row);
+            padding: 30px 30px 100px;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 15px 0;
+            margin: 0 auto;
+            border-radius: 20px;
+            position: relative;
+            background-color: #869bd7;
+            .closeBtn {
+                @include default_absolute(10%, 10%, -10%, -10%);
+                cursor: pointer;
+            }
+        }
+        .btnDU {
+            @include default_absolute(50%, 95%, -50%, -95%);
+            @include default_flex(flex, center, center, row);
+            button {
+                width: 100px;
+                padding: 10px 20px;
+                box-sizing: border-box;
+                margin: 0 5px;
+                cursor: pointer;
+                border: none;
+                border-radius: 10px;
+            }
+        }
+    }
+}
